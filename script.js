@@ -1,14 +1,13 @@
 const clientId = 'v3gnon73g7cupdj172jjcgi7p9orao';
 const redirectUri = 'https://pollitodecolor.github.io/FirstExt/overlay.html'; // Debe coincidir con la URL configurada en el Centro de Desarrollo de Twitch
 
-function initializeExtension() {
-  const authButton = document.getElementById('authButton');
-  const userInfo = document.getElementById('userInfo');
-  const usernameSpan = document.getElementById('username');
+const authButton = document.getElementById('authButton');
+const userInfo = document.getElementById('userInfo');
+const usernameSpan = document.getElementById('username');
 
-  authButton.addEventListener('click', async () => {
-    twitch.ext.actions.requestAuthToken();
-  });
+authButton.addEventListener('click', async () => {
+  twitch.ext.actions.requestAuthToken();
+});
 
 twitch.ext.onAuthorized(async (auth) => {
   const accessToken = auth.token;
