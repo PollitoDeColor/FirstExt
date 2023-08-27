@@ -1,0 +1,22 @@
+{
+  "name": "primer_extension",
+  "version": "1.0.0",
+  "description": "hola mundo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=localhost.pem&&set SSL_KEY_FILE=localhost-key.pem&&react-scripts start",
+    "build": "react-scripts build",
+    "copy-cert": "copy /Y localhost.pem node_modules\\webpack-dev-server\\ssl\\server.pem",
+    "copy-key": "copy /Y localhost-key.pem node_modules\\webpack-dev-server\\ssl\\server.key",
+    "postinstall": "npm run copy-cert&&npm run copy-key",
+    "eject": "react-scripts eject"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "http-server": "^14.1.1"
+  }
+}

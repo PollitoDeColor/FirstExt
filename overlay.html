@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Hello World Overlay</title>
+  <style>
+    body {
+      position: fixed;
+      top: 0;
+      left: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .clickable-image {
+      position: absolute;
+      cursor: pointer;
+      display: none;
+      width: 100px;
+    }
+    .username-label {
+      position: absolute;
+      font-size: 17px;
+      color: black;
+      padding: 5px;
+      border-radius: 5px;
+      /* No es necesario poner display: none; aquí, ya que lo manejarás en el JavaScript */
+    }
+  </style>
+</head>
+<body>
+
+  <button id="authButton">Autenticar</button>
+  <div id="userInfo" style="display: none;">
+    <div id="usernameLabel" class="username-label"> <!-- Agregado el class aquí -->
+      <span id="username"></span>
+    </div>
+  </div>
+  <img id="pollito" src="images/pollito.gif" alt="" style="position: absolute; top: 100px; left: 100px; width: 100px;">
+  <img src="images/ruffles.png" class="clickable-image">
+  <img src="images/rexona.png" class="clickable-image">
+  <img src="images/emperador.png" class="clickable-image">
+  <img src="images/nyx.png" class="clickable-image">
+  <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
