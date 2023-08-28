@@ -52,10 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    const pollito = document.getElementById('pollito');
-    const usernameLabel = document.getElementById('usernameLabel');
-    const images = document.getElementsByClassName('clickable-image');
-
     // Resto del código para manejar interacciones y mostrar imágenes aleatorias
    
 
