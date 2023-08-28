@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function () {
 const clientId = 'v3gnon73g7cupdj172jjcgi7p9orao';
 const redirectUri = 'https://pollitodecolor.github.io/FirstExt/overlay.html'; // Debe coincidir con la URL configurada en el Centro de Desarrollo de Twitch
 
@@ -123,4 +124,4 @@ twitch.ext.configuration.onChanged(async () => {
 
   // Mostrar una imagen aleatoria cada 5 segundos
   setInterval(showRandomImage, 7500);
-//});
+});
