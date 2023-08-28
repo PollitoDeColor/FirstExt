@@ -1,5 +1,5 @@
 const clientId = 'v3gnon73g7cupdj172jjcgi7p9orao';
-const redirectUri = 'https://localhost:8080/overlay.html'; // Debe coincidir con la URL configurada en el Centro de Desarrollo de Twitch
+const redirectUri = 'https://pollitodecolor.github.io/FirstExt/overlay.html'; // Debe coincidir con la URL configurada en el Centro de Desarrollo de Twitch
 
 const authButton = document.getElementById('authButton');
 const userInfo = document.getElementById('userInfo');
