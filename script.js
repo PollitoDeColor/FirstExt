@@ -2,11 +2,14 @@ const clientId = 'v3gnon73g7cupdj172jjcgi7p9orao';
 const redirectUri = 'https://pollitodecolor.github.io/FirstExt/overlay.html'; // Debe coincidir con la URL configurada en el Centro de Desarrollo de Twitch
 
 const authButton = document.getElementById('authButton');
+console.log('authButton:', authButton);
 const userInfo = document.getElementById('userInfo');
 const usernameSpan = document.getElementById('username');
 
 authButton.addEventListener('click', async () => {
+    console.log('Auth button clicked');
   if (!localStorage.getItem('access_token')) {
+      console.log('Authorized:', auth);
     // Iniciar el flujo de autenticación de Twitch
     window.location.href = `https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=user:read:email`;
   } else {
