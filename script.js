@@ -1,58 +1,63 @@
 document.addEventListener("DOMContentLoaded", function () {
-const clientId = 'v3gnon73g7cupdj172jjcgi7p9orao';
-const redirectUri = 'https://pollitodecolor.github.io/FirstExt/overlay.html'; // Debe coincidir con la URL configurada en el Centro de Desarrollo de Twitch
+  const clientId = 'v3gnon73g7cupdj172jjcgi7p9orao';
+  const redirectUri = 'https://pollitodecolor.github.io/FirstExt/overlay.html';
 
-const authButton = document.getElementById('authButton');
-const userInfo = document.getElementById('userInfo');
-const usernameSpan = document.getElementById('username');
+  const authButton = document.getElementById('authButton');
+  const userInfo = document.getElementById('userInfo');
+  const usernameSpan = document.getElementById('username');
 
-authButton.addEventListener('click', async () => {
-  twitch.ext.actions.requestAuthToken();
-});
+  if (typeof twitch !== 'undefined') { // Verifica si twitch está definido antes de usarlo
+    authButton.addEventListener('click', async () => {
+      twitch.ext.actions.requestAuthToken();
+    });
 
-twitch.ext.onAuthorized(async (auth) => {
-  const accessToken = auth.token;
+    twitch.ext.onAuthorized(async (auth) => {
+      const accessToken = auth.token;
   
-  // Almacena el token de acceso usando twitch.ext.configuration
-  await twitch.ext.configuration.set('access_token', accessToken);
+      await twitch.ext.configuration.set('access_token', accessToken);
 
-  // Llama a la función para obtener información del usuario
-  fetchUserInfo(accessToken);
-});
+      fetchUserInfo(accessToken);
+    });
 
-async function fetchUserInfo(accessToken) {
-  try {
-    const response = await fetch('https://api.twitch.tv/helix/users', {
-      headers: {
-        'Client-ID': clientId,
-        'Authorization': `Extension ${accessToken}` // Cambia "Bearer" a "Extension"
+    async function fetchUserInfo(accessToken) {
+      try {
+        const response = await fetch('https://api.twitch.tv/helix/users', {
+          headers: {
+            'Client-ID': clientId,
+            'Authorization': `Extension ${accessToken}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const username = data.data[0].login;
+          const capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1);
+          usernameSpan.textContent = capitalizedUsername;
+          userInfo.style.display = 'block';
+
+          const pollitoImage = document.getElementById('pollito');
+          pollitoImage.alt = username;
+        } else {
+          console.error('Error al obtener información del usuario');
+        }
+      } catch (error) {
+        console.error('Error en la solicitud de API:', error);
+      }
+    }
+
+    twitch.ext.configuration.onChanged(async () => {
+      const accessToken = await twitch.ext.configuration.get('access_token');
+      if (accessToken) {
+        fetchUserInfo(accessToken);
       }
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      const username = data.data[0].login;
-      const capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1);
-      usernameSpan.textContent = capitalizedUsername;
-      userInfo.style.display = 'block';
+    const pollito = document.getElementById('pollito');
+    const usernameLabel = document.getElementById('usernameLabel');
+    const images = document.getElementsByClassName('clickable-image');
 
-      const pollitoImage = document.getElementById('pollito');
-      pollitoImage.alt = username;
-    } else {
-      console.error('Error al obtener información del usuario');
-    }
-  } catch (error) {
-    console.error('Error en la solicitud de API:', error);
-  }
-}
-
-// Aquí puedes usar twitch.ext.configuration para obtener el token de acceso almacenado
-twitch.ext.configuration.onChanged(async () => {
-  const accessToken = await twitch.ext.configuration.get('access_token');
-  if (accessToken) {
-    fetchUserInfo(accessToken);
-  }
-});
+    // Resto del código para manejar interacciones y mostrar imágenes aleatorias
+   
 
   // Ahora continuamos con el resto del código...*/
 
@@ -124,4 +129,7 @@ twitch.ext.configuration.onChanged(async () => {
 
   // Mostrar una imagen aleatoria cada 5 segundos
   setInterval(showRandomImage, 7500);
+  }else {
+    console.error('El SDK de Twitch no se ha cargado correctamente.');
+  }
 });
